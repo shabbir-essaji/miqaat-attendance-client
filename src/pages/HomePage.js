@@ -2,14 +2,18 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLoaderData } from 'react-router-dom';
 import Select from 'react-select';
 import service from './service';
+import '../css/homepage.css';
 
 const HomePage = () => {
-  const [hofId, setHOFId] = useState();
+  const [hofIdObj, setHOFIdObj] = useState({
+    hofId: null,
+    isValid: false
+  });
   const [selectedMiqaat, setSelectedMiqaat] = useState();
   const [miqaatOptions, setMiqaatOptions] = useState([]);
   const navigate = useNavigate();
-
   const miqaatResponse = useLoaderData();
+
   useEffect(() => {
     const miqaatOptions = miqaatResponse.map((miqaat) => {
       return {
@@ -19,12 +23,15 @@ const HomePage = () => {
       };
     });
     setMiqaatOptions(miqaatOptions);
+    if (miqaatOptions.length === 1) {
+      setSelectedMiqaat(miqaatOptions[0].miqaat);
+    }
   }, [miqaatResponse]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     service
-      .getMembersList(hofId, selectedMiqaat.miqaatId)
+      .getMembersList(hofIdObj.hofId, selectedMiqaat.miqaatId)
       .then((membersList) => {
         if (membersList?.length) {
           navigate('/members', {
@@ -33,42 +40,58 @@ const HomePage = () => {
               miqaatId: selectedMiqaat.miqaatId
             }
           });
-        } else {
-          console.log('Incorrect HOF');
         }
       });
   };
+
+  const onHOFIdChange = (event) => {
+    const ITSRegex = new RegExp('^[0-9]{8,8}$');
+    const hofIdObj = { hofId: Number(event.target.value) };
+    hofIdObj.isValid = ITSRegex.test(hofIdObj.hofId);
+    setHOFIdObj(hofIdObj);
+  };
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
-    >
-      {selectedMiqaat && <h1>{selectedMiqaat.name}</h1>}
-      <input
-        type="number"
-        placeholder="Enter HOF ITS ID"
-        maxLength={8}
-        pattern={'[0-9]{0,8}'}
-        required={true}
-        onChange={(event) => setHOFId(Number(event.target.value))}
-      />
-      <Select
-        options={miqaatOptions}
-        placeholder={'Select Miqaat'}
-        onChange={(value) => {
-          setSelectedMiqaat(value.miqaat);
-        }}
-      />
-      <button
-        type="submit"
-        onClick={onSubmit}
-        disabled={!hofId || !selectedMiqaat}
-      >
-        {`Submit`}
-      </button>
+    <div className="homepage">
+      <h1>{selectedMiqaat ? selectedMiqaat.name : 'Select a miqaat'}</h1>
+      <div className="user-box">
+        {selectedMiqaat ? (
+          <>
+            <input
+              type="number"
+              placeholder="Enter HOF ITS ID"
+              required={true}
+              onChange={onHOFIdChange}
+              onInvalid={(event) =>
+                event.target.setCustomValidity('HOF ITS ID is required')
+              }
+            />
+            {hofIdObj?.isValid ? (
+              <button
+                type="submit"
+                className={
+                  !hofIdObj.isValid
+                    ? 'button button-enable'
+                    : 'button button-disable'
+                }
+                pattern="[0-9]{0,8}"
+                onClick={onSubmit}
+                disabled={!hofIdObj?.isValid}
+              >
+                Submit
+              </button>
+            ) : null}
+          </>
+        ) : (
+          <Select
+            options={miqaatOptions}
+            placeholder={''}
+            onChange={(value) => {
+              setSelectedMiqaat(value.miqaat);
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };

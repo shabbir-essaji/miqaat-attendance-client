@@ -6,6 +6,7 @@ import Members from './pages/Members';
 import Dashboard from './pages/Dashboard';
 import ErrorPage from './pages/Errorpage';
 import service from './pages/service';
+import './index.css';
 
 const router = createBrowserRouter([
   {

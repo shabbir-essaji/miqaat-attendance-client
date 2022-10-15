@@ -81,7 +81,7 @@ const Members = () => {
           })}
         </tbody>
       </table>
-      <input type="button" value="MARK ATTENDANCE" onClick={markAttendance} />
+      <button onClick={markAttendance}>{'Mark attendance'}</button>
     </div>
   );
 };
