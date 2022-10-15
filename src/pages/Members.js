@@ -47,14 +47,12 @@ const Members = () => {
     });
     service.markAttendance(attendancePayload).then((value) => {
       if (value) {
-        console.log('Marked');
         navigate('/dashboard', {
           state: {
             miqaatId: location.state.miqaatId
           }
         });
       } else {
-        console.log('Not Marked');
         navigate('/');
       }
     });
