@@ -26,38 +26,32 @@ const MemberRow = ({ member, setMembersAttendance }) => {
     }
   };
   return (
-    <tr key={member.its}>
-      <td>{member.its}</td>
-      <td>{member.name}</td>
-      <td>
-        <div>
-          <input
-            type="radio"
-            id="attending"
-            value={1}
-            checked={option === 1}
-            onChange={onRadioChange}
-          />
-          <label htmlFor="attending">ATTENDING</label>
-          <input
-            type="radio"
-            id="tentative"
-            value={-1}
-            checked={option === -1}
-            onChange={onRadioChange}
-          />
-          <label htmlFor="tentative">TENTATIVE</label>
-          <input
-            type="radio"
-            id="notAttending"
-            value={0}
-            checked={option === 0}
-            onChange={onRadioChange}
-          />
-          <label htmlFor="notAttending">NOT ATTENDING</label>
-        </div>
-      </td>
-    </tr>
+    <>
+      <input
+        type="radio"
+        id="attending"
+        value={1}
+        checked={option === 1}
+        onChange={onRadioChange}
+      />
+      <label htmlFor="attending">ATTENDING</label>
+      <input
+        type="radio"
+        id="tentative"
+        value={-1}
+        checked={option === -1}
+        onChange={onRadioChange}
+      />
+      <label htmlFor="tentative">TENTATIVE</label>
+      <input
+        type="radio"
+        id="notAttending"
+        value={0}
+        checked={option === 0}
+        onChange={onRadioChange}
+      />
+      <label htmlFor="notAttending">NOT ATTENDING</label>
+    </>
   );
 };
 

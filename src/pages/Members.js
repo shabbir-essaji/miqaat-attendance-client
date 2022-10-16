@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MemberRow from './MemberRow';
 import service from './service';
+import DataTable, { createTheme } from 'react-data-table-component';
+import '../css/members.css';
 
 const Members = () => {
   const [membersList, setMembersList] = useState([]);
@@ -23,6 +25,28 @@ const Members = () => {
       navigate('/');
     }
   }, [location]);
+
+  const columns = [
+    {
+      name: 'ITS',
+      selector: (row) => row.its
+    },
+    {
+      name: 'Name',
+      selector: (row) => row.name
+    },
+    {
+      name: 'Action',
+      cell: (member) => {
+        return (
+          <MemberRow
+            member={member}
+            setMembersAttendance={setMembersAttendance}
+          />
+        );
+      }
+    }
+  ];
 
   const markAttendance = () => {
     const attendancePayload = {
@@ -57,9 +81,22 @@ const Members = () => {
       }
     });
   };
+
+  createTheme('dark', {
+    background: {
+      default: 'transparent'
+    }
+  });
+
   return (
-    <div>
-      <table>
+    <div className="members">
+      <DataTable
+        title={'Members'}
+        columns={columns}
+        data={membersList}
+        theme="dark"
+      />
+      {/* <table>
         <thead>
           <tr>
             <th>ITS</th>
@@ -78,7 +115,7 @@ const Members = () => {
             );
           })}
         </tbody>
-      </table>
+      </table> */}
       <button onClick={markAttendance}>{'Mark attendance'}</button>
     </div>
   );
