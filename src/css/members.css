@@ -1,5 +1,21 @@
-.members {}
+.members {
+    width: 800px;
+    margin: auto;
+    padding: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #94ebb7;
+}
 
+/*Using normal Table*/
+.members .memberTable {
+    border: 1px dashed red;
+    width: inherit;
+}
+
+/*Using Data Table*/
 .members .rdt_TableHeader {
     background-color: #80af89;
     letter-spacing: 4px;

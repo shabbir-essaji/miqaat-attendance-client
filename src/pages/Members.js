@@ -89,7 +89,7 @@ const Members = () => {
         data={membersList}
         theme="dark"
       /> */}
-      <table>
+      <table className="memberTable">
         <thead>
           <tr>
             <th>NAME</th>
