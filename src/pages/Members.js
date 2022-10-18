@@ -7,6 +7,7 @@ import '../css/members.css';
 const Members = () => {
   const [membersList, setMembersList] = useState([]);
   const [membersAttendance, setMembersAttendance] = useState();
+  const [isMarkAttendanceDisabled, setMarkAttendanceDisabled] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -14,7 +15,11 @@ const Members = () => {
     if (location.state && location.state.membersList?.length) {
       const attendance = {};
       location.state.membersList.forEach((member) => {
-        if (member.response) {
+        if (
+          member.response !== null &&
+          member.response !== undefined &&
+          !isNaN(member.response)
+        ) {
           attendance[member.its] = member.response;
         }
       });
@@ -24,6 +29,16 @@ const Members = () => {
       navigate('/');
     }
   }, []);
+
+  useEffect(() => {
+    if (membersAttendance && membersList) {
+      setMarkAttendanceDisabled(
+        membersList.length !== Object.keys(membersAttendance).length
+      );
+    } else {
+      setMarkAttendanceDisabled(true);
+    }
+  }, [membersList, membersAttendance]);
 
   const markAttendance = () => {
     const attendancePayload = {
@@ -72,6 +87,7 @@ const Members = () => {
           {membersList.map((member) => {
             return (
               <MemberRow
+                key={member.its}
                 member={member}
                 setMembersAttendance={setMembersAttendance}
               />
@@ -79,8 +95,15 @@ const Members = () => {
           })}
         </tbody>
       </table>
-      <div class="mark-button">
-        <button onClick={markAttendance}>{'Mark attendance'}</button>
+      <div className="mark-button">
+        <button
+          disabled={isMarkAttendanceDisabled}
+          onClick={() => {
+            isMarkAttendanceDisabled && markAttendance();
+          }}
+        >
+          {'Mark attendance'}
+        </button>
       </div>
     </div>
   );

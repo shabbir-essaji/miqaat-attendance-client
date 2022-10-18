@@ -33,13 +33,17 @@
     text-decoration: none;
     overflow: hidden;
     transition: .5s;
-    letter-spacing: 0.4rem
+    letter-spacing: 0.4rem;
+    border-radius: 5px;
 }
 
-.members .mark-button button:hover {
-    background: #64B5F6;
-    border-radius: 5px;
+.members .mark-button button:hover:enabled {
     cursor: pointer;
+    background: #64B5F6;
+}
+
+.members .mark-button button:disabled {
+    background: #616161;
 }
 
 /*Using Data Table*/
