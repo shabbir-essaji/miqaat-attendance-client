@@ -10,7 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(#9CDB87, #3C9037);
+  background: linear-gradient(#c5ddb3, #62a95e);
 }
 
 
@@ -28,5 +28,5 @@ input[type=number] {
 }
 
 input::placeholder {
-  color: #fff;
+  color: black;
 }

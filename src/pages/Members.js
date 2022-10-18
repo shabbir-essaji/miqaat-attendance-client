@@ -1,32 +1,53 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import MemberRow from './MemberRow';
 import service from './service';
 import '../css/members.css';
+import LoadingSpinner from './LoadingSpinner';
 
 const Members = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [membersList, setMembersList] = useState([]);
   const [membersAttendance, setMembersAttendance] = useState();
   const [isMarkAttendanceDisabled, setMarkAttendanceDisabled] = useState(true);
-  const location = useLocation();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.state && location.state.membersList?.length) {
-      const attendance = {};
-      location.state.membersList.forEach((member) => {
-        if (
-          member.response !== null &&
-          member.response !== undefined &&
-          !isNaN(member.response)
-        ) {
-          attendance[member.its] = member.response;
+    const miqaatId = searchParams.get('miqaatId');
+    const hofId = searchParams.get('hofId');
+
+    if (miqaatId && hofId) {
+      setIsLoading(true);
+      service.getMembersList(hofId, miqaatId).then((membersList) => {
+        if (membersList?.length) {
+          const attendance = {};
+          membersList.forEach((member) => {
+            if (
+              member.response !== null &&
+              member.response !== undefined &&
+              !isNaN(member.response)
+            ) {
+              attendance[member.its] = member.response;
+            }
+          });
+          setMembersAttendance(attendance);
+          setMembersList(membersList);
+          setIsLoading(false);
+        } else {
+          navigate('/', {
+            state: {
+              showError: true
+            }
+          });
         }
       });
-      setMembersAttendance(attendance);
-      setMembersList(location.state.membersList);
     } else {
-      navigate('/');
+      navigate('/', {
+        state: {
+          showError: true
+        }
+      });
     }
   }, []);
 
@@ -41,8 +62,10 @@ const Members = () => {
   }, [membersList, membersAttendance]);
 
   const markAttendance = () => {
+    const miqaatId = searchParams.get('miqaatId');
+
     const attendancePayload = {
-      miqaatId: location.state.miqaatId,
+      miqaatId,
       attending: [],
       notAttending: [],
       tentative: []
@@ -65,7 +88,7 @@ const Members = () => {
       if (value) {
         navigate('/dashboard', {
           state: {
-            miqaatId: location.state.miqaatId
+            miqaatId
           }
         });
       } else {
@@ -74,7 +97,9 @@ const Members = () => {
     });
   };
 
-  return (
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div className="members">
       <table className="memberTable">
         <thead>
@@ -99,7 +124,7 @@ const Members = () => {
         <button
           disabled={isMarkAttendanceDisabled}
           onClick={() => {
-            isMarkAttendanceDisabled && markAttendance();
+            !isMarkAttendanceDisabled && markAttendance();
           }}
         >
           {'Mark attendance'}

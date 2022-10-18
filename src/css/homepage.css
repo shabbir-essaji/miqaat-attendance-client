@@ -5,7 +5,7 @@
     width: 500px;
     padding: 40px;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, .5);
+    background: #ddd391;
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
@@ -13,7 +13,7 @@
 
 .homepage h1 {
     margin: 0 0 30px;
-    color: #fff;
+    color: black;
     text-align: center;
 }
 
@@ -27,12 +27,11 @@
     width: 100%;
     padding: 5px 0;
     font-size: 16px;
-    color: #fff;
     margin-bottom: 30px;
     border: none;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid black;
     outline: none;
-    background: transparent;
+    background-color: #ddd391;
 }
 
 .homepage .user-box button {
@@ -46,11 +45,7 @@
     letter-spacing: 0.4rem
 }
 
-.homepage .user-box button:disabled {
-    background: #616161;
-}
-
-.homepage .user-box button:hover:enabled {
-    background: #64B5F6;
+.homepage .user-box button {
+    background: #80af89;
     border-radius: 5px;
 }

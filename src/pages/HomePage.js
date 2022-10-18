@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLoaderData } from 'react-router-dom';
+import { useNavigate, useLoaderData, useLocation } from 'react-router-dom';
 import Select from 'react-select';
 import { ToastContainer, toast, Slide } from 'react-toastify';
-import service from './service';
 import '../css/homepage.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,7 +13,24 @@ const HomePage = () => {
   const [selectedMiqaat, setSelectedMiqaat] = useState();
   const [miqaatOptions, setMiqaatOptions] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
   const miqaatResponse = useLoaderData();
+
+  useEffect(() => {
+    //if its coming from reload, clear prev state.
+    window.history.replaceState({}, document.title);
+    if (location?.state?.showError) {
+      toast.error('Incorrect HOF ITS ID', {
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        transition: Slide,
+        theme: 'light'
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const miqaatOptions = miqaatResponse.map((miqaat) => {
@@ -32,28 +48,9 @@ const HomePage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    service
-      .getMembersList(hofIdObj.hofId, selectedMiqaat.miqaatId)
-      .then((membersList) => {
-        if (membersList?.length) {
-          navigate('/members', {
-            state: {
-              membersList,
-              miqaatId: selectedMiqaat.miqaatId
-            }
-          });
-        } else {
-          toast.error('Incorrect HOF ITS ID', {
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            transition: Slide,
-            theme: 'light'
-          });
-        }
-      });
+    navigate(
+      `/members?miqaatId=${selectedMiqaat.miqaatId}&hofId=${hofIdObj.hofId}`
+    );
   };
 
   const onHOFIdChange = (event) => {
