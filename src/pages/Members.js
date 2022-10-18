@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MemberRow from './MemberRow';
 import service from './service';
-import DataTable from 'react-data-table-component';
 import '../css/members.css';
 
 const Members = () => {
@@ -24,28 +23,7 @@ const Members = () => {
     } else {
       navigate('/');
     }
-  }, [location]);
-
-  const columns = [
-    {
-      name: 'Name',
-      selector: (row) => row.name
-    },
-    {
-      name: 'Action',
-      cell: (member) => {
-        return (
-          membersAttendance && (
-            <MemberRow
-              its={member.its}
-              membersAttendance={membersAttendance}
-              setMembersAttendance={setMembersAttendance}
-            />
-          )
-        );
-      }
-    }
-  ];
+  }, []);
 
   const markAttendance = () => {
     const attendancePayload = {
@@ -83,12 +61,6 @@ const Members = () => {
 
   return (
     <div className="members">
-      {/* <DataTable
-        title={'Members'}
-        columns={columns}
-        data={membersList}
-        theme="dark"
-      /> */}
       <table className="memberTable">
         <thead>
           <tr>
@@ -107,7 +79,9 @@ const Members = () => {
           })}
         </tbody>
       </table>
-      <button onClick={markAttendance}>{'Mark attendance'}</button>
+      <div class="mark-button">
+        <button onClick={markAttendance}>{'Mark attendance'}</button>
+      </div>
     </div>
   );
 };

@@ -2,17 +2,44 @@
     width: 800px;
     margin: auto;
     padding: 2rem;
+    padding-bottom: 1rem;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #94ebb7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 2rem;
 }
 
 /*Using normal Table*/
 .members .memberTable {
-    border: 1px dashed red;
     width: inherit;
+}
+
+.members .mark-button {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.members .mark-button button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 0.4rem
+}
+
+.members .mark-button button:hover {
+    background: #64B5F6;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 /*Using Data Table*/
