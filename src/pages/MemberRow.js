@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../css/memberRow.css';
 
 const MemberRow = ({ member, setMembersAttendance }) => {
   const [option, setOption] = useState(member.response);
@@ -26,7 +27,7 @@ const MemberRow = ({ member, setMembersAttendance }) => {
     }
   };
   return (
-    <>
+    <div className="switch-field">
       <input
         type="radio"
         id="attending"
@@ -34,7 +35,9 @@ const MemberRow = ({ member, setMembersAttendance }) => {
         checked={option === 1}
         onChange={onRadioChange}
       />
-      <label htmlFor="attending">ATTENDING</label>
+      <label htmlFor="attending" className={option === 1 ? 'attending' : ''}>
+        ATTENDING
+      </label>
       <input
         type="radio"
         id="tentative"
@@ -42,7 +45,9 @@ const MemberRow = ({ member, setMembersAttendance }) => {
         checked={option === -1}
         onChange={onRadioChange}
       />
-      <label htmlFor="tentative">TENTATIVE</label>
+      <label htmlFor="tentative" className={option === -1 ? 'tentative' : ''}>
+        TENTATIVE
+      </label>
       <input
         type="radio"
         id="notAttending"
@@ -50,8 +55,13 @@ const MemberRow = ({ member, setMembersAttendance }) => {
         checked={option === 0}
         onChange={onRadioChange}
       />
-      <label htmlFor="notAttending">NOT ATTENDING</label>
-    </>
+      <label
+        htmlFor="notAttending"
+        className={option === 0 ? 'notattending' : ''}
+      >
+        NOT ATTENDING
+      </label>
+    </div>
   );
 };
 

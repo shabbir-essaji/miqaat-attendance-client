@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MemberRow from './MemberRow';
 import service from './service';
-import DataTable, { createTheme } from 'react-data-table-component';
+import DataTable from 'react-data-table-component';
 import '../css/members.css';
 
 const Members = () => {
@@ -28,10 +28,6 @@ const Members = () => {
 
   const columns = [
     {
-      name: 'ITS',
-      selector: (row) => row.its
-    },
-    {
       name: 'Name',
       selector: (row) => row.name
     },
@@ -39,10 +35,13 @@ const Members = () => {
       name: 'Action',
       cell: (member) => {
         return (
-          <MemberRow
-            member={member}
-            setMembersAttendance={setMembersAttendance}
-          />
+          membersAttendance && (
+            <MemberRow
+              its={member.its}
+              membersAttendance={membersAttendance}
+              setMembersAttendance={setMembersAttendance}
+            />
+          )
         );
       }
     }
@@ -82,24 +81,17 @@ const Members = () => {
     });
   };
 
-  createTheme('dark', {
-    background: {
-      default: 'transparent'
-    }
-  });
-
   return (
     <div className="members">
-      <DataTable
+      {/* <DataTable
         title={'Members'}
         columns={columns}
         data={membersList}
         theme="dark"
-      />
-      {/* <table>
+      /> */}
+      <table>
         <thead>
           <tr>
-            <th>ITS</th>
             <th>NAME</th>
             <th>ACTION</th>
           </tr>
@@ -108,14 +100,13 @@ const Members = () => {
           {membersList.map((member) => {
             return (
               <MemberRow
-                key={member.its}
                 member={member}
                 setMembersAttendance={setMembersAttendance}
               />
             );
           })}
         </tbody>
-      </table> */}
+      </table>
       <button onClick={markAttendance}>{'Mark attendance'}</button>
     </div>
   );
