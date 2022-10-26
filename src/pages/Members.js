@@ -86,11 +86,7 @@ const Members = () => {
     });
     service.markAttendance(attendancePayload).then((value) => {
       if (value) {
-        navigate('/dashboard', {
-          state: {
-            miqaatId
-          }
-        });
+        navigate(`/dashboard?miqaatId${miqaatId}`);
       } else {
         navigate('/');
       }

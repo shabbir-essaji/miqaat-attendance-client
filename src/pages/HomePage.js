@@ -40,9 +40,11 @@ const HomePage = () => {
         miqaat
       };
     });
-    setMiqaatOptions(miqaatOptions);
-    if (miqaatOptions.length === 1) {
-      setSelectedMiqaat(miqaatOptions[0].miqaat);
+    if (miqaatOptions?.length) {
+      setMiqaatOptions(miqaatOptions);
+      if (miqaatOptions.length === 1) {
+        setSelectedMiqaat(miqaatOptions[0].miqaat);
+      }
     }
   }, [miqaatResponse]);
 
@@ -63,45 +65,49 @@ const HomePage = () => {
   return (
     <>
       <div className="homepage">
-        <h1>{selectedMiqaat ? selectedMiqaat.name : 'Select a miqaat'}</h1>
-        <div className="user-box">
-          {selectedMiqaat ? (
-            <>
-              <input
-                type="number"
-                placeholder="Enter HOF ITS ID"
-                required={true}
-                onChange={onHOFIdChange}
-                onInvalid={(event) =>
-                  event.target.setCustomValidity('HOF ITS ID is required')
-                }
-              />
-              {hofIdObj?.isValid ? (
-                <button
-                  type="submit"
-                  className={
-                    !hofIdObj.isValid
-                      ? 'button button-enable'
-                      : 'button button-disable'
+        {miqaatOptions.length ? (
+          <div className="user-box">
+            <h1>{selectedMiqaat ? selectedMiqaat.name : 'Select a miqaat'}</h1>
+            {selectedMiqaat ? (
+              <>
+                <input
+                  type="number"
+                  placeholder="Enter HOF ITS ID"
+                  required={true}
+                  onChange={onHOFIdChange}
+                  onInvalid={(event) =>
+                    event.target.setCustomValidity('HOF ITS ID is required')
                   }
-                  pattern="[0-9]{0,8}"
-                  onClick={onSubmit}
-                  disabled={!hofIdObj?.isValid}
-                >
-                  Submit
-                </button>
-              ) : null}
-            </>
-          ) : (
-            <Select
-              options={miqaatOptions}
-              placeholder={''}
-              onChange={(value) => {
-                setSelectedMiqaat(value.miqaat);
-              }}
-            />
-          )}
-        </div>
+                />
+                {hofIdObj?.isValid ? (
+                  <button
+                    type="submit"
+                    className={
+                      !hofIdObj.isValid
+                        ? 'button button-enable'
+                        : 'button button-disable'
+                    }
+                    pattern="[0-9]{0,8}"
+                    onClick={onSubmit}
+                    disabled={!hofIdObj?.isValid}
+                  >
+                    Submit
+                  </button>
+                ) : null}
+              </>
+            ) : (
+              <Select
+                options={miqaatOptions}
+                placeholder={''}
+                onChange={(value) => {
+                  setSelectedMiqaat(value.miqaat);
+                }}
+              />
+            )}
+          </div>
+        ) : (
+          <h1>{'No miqaat available'}</h1>
+        )}
       </div>
       <ToastContainer />
     </>
