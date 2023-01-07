@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { PieChart, Pie, Cell, Legend } from 'recharts';
 import LoadingSpinner from './LoadingSpinner';
 import service from './service';
 
 const Dashboard = () => {
-  const location = useLocation();
   const [miqaatName, setMiqaatName] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
-
+  const [searchParams] = useSearchParams();
   useEffect(() => {
-    if (location.state?.miqaatId) {
+    const miqaatId = searchParams?.get('miqaatId');
+    if (miqaatId) {
       setIsLoading(true);
       service
-        .getDashboard(location.state.miqaatId)
+        .getDashboard(miqaatId)
         .then((response) => {
           setMiqaatName(response.miqaatName);
           const pieData = [];
