@@ -1,4 +1,9 @@
-.homepage {
+.linkDiv {
+    display: flex;
+    margin: 1rem;
+}
+
+.homepage_box {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -11,19 +16,19 @@
     border-radius: 10px;
 }
 
-.homepage h1 {
+.homepage_box h1 {
     margin: 0 0 30px;
     color: black;
     text-align: center;
 }
 
-.homepage .user-box {
+.homepage_box .user-box {
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-.homepage .user-box input {
+.homepage_box .user-box input {
     width: 100%;
     padding: 5px 0;
     font-size: 16px;
@@ -34,7 +39,7 @@
     background-color: #ddd391;
 }
 
-.homepage .user-box button {
+.homepage_box .user-box button {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -45,7 +50,7 @@
     letter-spacing: 0.4rem
 }
 
-.homepage .user-box button {
+.homepage_box .user-box button {
     background: #80af89;
     border-radius: 5px;
 }

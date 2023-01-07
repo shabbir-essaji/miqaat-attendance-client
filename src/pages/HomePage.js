@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLoaderData, useLocation } from 'react-router-dom';
+import {
+  useNavigate,
+  useLoaderData,
+  useLocation,
+  Link
+} from 'react-router-dom';
 import Select from 'react-select';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import '../css/homepage.css';
@@ -64,7 +69,10 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="homepage">
+      <div className="linkDiv">
+        <Link to={'/dashboard'}>DASHBOARD</Link>
+      </div>
+      <div className="homepage_box">
         {miqaatOptions.length ? (
           <div className="user-box">
             <h1>{selectedMiqaat ? selectedMiqaat.name : 'Select a miqaat'}</h1>

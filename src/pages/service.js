@@ -1,4 +1,4 @@
-const url = 'https://miqaat-attendance-service.herokuapp.com';
+const url = 'http://localhost:8080'; //'https://miqaat-attendance-service.herokuapp.com';
 const JSON_HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json'

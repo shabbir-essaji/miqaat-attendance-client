@@ -7,7 +7,7 @@ import service from './service';
 const Dashboard = () => {
   const location = useLocation();
   const [miqaatName, setMiqaatName] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
 
   useEffect(() => {
