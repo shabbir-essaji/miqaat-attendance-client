@@ -1,5 +1,6 @@
 .members {
-    width: 800px;
+    max-width: 1200px;
+    width: auto;
     margin: auto;
     padding: 2rem;
     padding-bottom: 1rem;
@@ -46,31 +47,44 @@
     background: #616161;
 }
 
-/*Using Data Table*/
-.members .rdt_TableHeader {
-    background-color: #80af89;
-    letter-spacing: 4px;
-    flex-direction: column;
-    font-size: 3rem;
+@media screen and (max-width:480px) {
+    .members {
+        width: auto;
+        max-width: 480px;
+        padding: 1rem;
+        padding-bottom: 0.25rem;
+    }
+
+    .members .mark-button {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .members .mark-button button {
+        padding: 5px 10px;
+        letter-spacing: 0.3rem;
+        border-radius: 3px;
+    }
+
+
 }
 
-.members .rdt_Table .rdt_TableHead .rdt_TableHeadRow {
-    background-color: #f3f3f3;
-}
+@media screen and (min-width:481px) and (max-width:720px) {
+    .members {
+        width: auto;
+        max-width: 720px;
+        padding: 1.25rem;
+        padding-bottom: 0.5rem;
+    }
 
-.members .rdt_Table .rdt_TableHead .rdt_TableHeadRow .rdt_TableCol {
-    border: 1px solid rgb(0 0 0 / 10%);
-}
+    .members .mark-button {
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
 
-.members .rdt_Table .rdt_TableHead .rdt_TableHeadRow .rdt_TableCol .rdt_TableCol_Sortable {
-    font-size: 1.5rem;
-}
-
-.members .rdt_Table .rdt_TableBody .rdt_TableRow {
-    background-color: #e0e0e0;
-    font-size: large;
-}
-
-.members .rdt_Table .rdt_TableBody .rdt_TableRow .rdt_TableCell {
-    font-size: 1.2rem;
+    .members .mark-button button {
+        padding: 8px 12px;
+        letter-spacing: 0.5rem;
+        border-radius: 3px;
+    }
 }

@@ -28,7 +28,7 @@ const MemberRow = ({ member, setMembersAttendance }) => {
   };
   return (
     <tr>
-      <td>{member.name}</td>
+      <td className="memberName">{member.name}</td>
       <td className="switch-field">
         <input
           type="radio"

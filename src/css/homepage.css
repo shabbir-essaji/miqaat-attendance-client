@@ -3,6 +3,7 @@
     margin: 1rem;
 }
 
+
 .homepage_box {
     position: absolute;
     top: 50%;
@@ -14,7 +15,9 @@
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
+
 }
+
 
 .homepage_box h1 {
     margin: 0 0 30px;
@@ -53,4 +56,27 @@
 .homepage_box .user-box button {
     background: #80af89;
     border-radius: 5px;
+}
+
+
+@media screen and (max-width:480px) {
+    .homepage_box {
+        width: 250px;
+        padding: 20px;
+    }
+
+    .homepage_box h1 {
+        margin: 0 0 20px;
+    }
+}
+
+@media screen and (min-width:481px) and (max-width:720px) {
+    .homepage_box {
+        width: 350px;
+        padding: 25px;
+    }
+
+    .homepage_box h1 {
+        margin: 0 0 25px;
+    }
 }

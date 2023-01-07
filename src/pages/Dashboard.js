@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { PieChart, Pie, Cell, Legend } from 'recharts';
 import LoadingSpinner from './LoadingSpinner';
 import service from './service';

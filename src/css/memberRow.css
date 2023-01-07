@@ -60,3 +60,39 @@
 .switch-field label:last-of-type {
     border-radius: 0 4px 4px 0;
 }
+
+@media screen and (max-width:480px) {
+    .memberName {
+        width: 8em;
+        min-width: 8em;
+        max-width: 8em;
+        font-size: 13px;
+    }
+
+    .switch-field {
+        margin-bottom: 25px;
+        margin: 4px auto;
+        padding: 8px;
+    }
+
+    .switch-field label {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width:481px) and (max-width:720px) {
+    .memberName {
+        width: auto;
+        font-size: 14px;
+    }
+
+    .switch-field {
+        margin-bottom: 30px;
+        margin: 6px auto;
+        padding: 10px;
+    }
+
+    .switch-field label {
+        font-size: 12px;
+    }
+}
